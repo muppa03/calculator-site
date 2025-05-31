@@ -8,8 +8,21 @@
     .title {
       text-align: center;
       font-size: 2em;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       color: #333;
+    }
+
+    .author {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 10px auto;
+      max-width: 60px;
     }
 
     .toggle-btn {
@@ -82,11 +95,34 @@
     .buttons button:hover {
       background-color: #ddd;
     }
+
+    @media (max-width: 400px) {
+      .calculator {
+        width: 90%;
+      }
+      .buttons button {
+        width: 22%;
+        margin: 2%;
+      }
+      .toggle-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+      }
+      .title {
+        font-size: 1.5em;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Optional logo: replace src with your image URL if desired -->
+  <!-- <img src="your-logo-url-here.png" alt="Logo" class="logo"> -->
+
   <h1 class="title">My Calculator</h1>
+  <p class="author">by muppa03</p>
   <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Toggle Theme</button>
+
   <div class="calculator">
     <input type="text" id="display" disabled>
     <div class="buttons">
@@ -140,7 +176,24 @@
     function toggleDarkMode() {
       document.body.classList.toggle('dark');
     }
+
+    // Keyboard support
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      const validKeys = '0123456789+-*/.=';
+      if (validKeys.includes(key)) {
+        if (key === '=' || key === 'Enter') {
+          calculate();
+        } else {
+          appendValue(key);
+        }
+      } else if (key === 'Backspace') {
+        deleteLast();
+      } else if (key.toLowerCase() === 'c') {
+        clearDisplay();
+      }
+    });
   </script>
 </body>
-</html>Add dark mode and updated styling
+</html>Add name, logo option, mobile styling, and keyboard support
 
