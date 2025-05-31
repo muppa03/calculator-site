@@ -4,7 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Creative Calculator</title>
+
+  <!-- Favicon & Manifest for PWA -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/181/181549.png" type="image/png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1f1c2c">
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -16,8 +24,8 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      transition: background-color 0.3s;
       position: relative;
+      transition: background-color 0.3s;
     }
 
     .title {
@@ -47,10 +55,6 @@
       color: #fff;
     }
 
-    .toggle-btn:hover {
-      background-color: #666;
-    }
-
     .theme-selector {
       top: 70px;
       right: 20px;
@@ -65,12 +69,12 @@
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
       width: 320px;
-      animation: slideIn 0.8s ease-out;
+      animation: fadeIn 1s ease-in-out;
     }
 
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .calculator input[type="text"] {
@@ -95,11 +99,12 @@
       border-radius: 10px;
       background-color: #333;
       color: #fff;
-      transition: transform 0.1s, background-color 0.3s;
+      transition: transform 0.1s, background-color 0.3s, box-shadow 0.3s;
     }
 
     .buttons button:hover {
       background-color: #555;
+      box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff inset;
     }
 
     .buttons button:active {
@@ -119,13 +124,11 @@
       .toggle-btn {
         top: 10px;
         right: 10px;
-        padding: 6px 12px;
       }
 
       .theme-selector {
         top: 60px;
         right: 10px;
-        padding: 6px 10px;
       }
 
       .title {
@@ -133,7 +136,7 @@
       }
     }
 
-    /* Themes */
+    /* Theme switching */
     body.theme-neon .calculator {
       background-color: #111;
       box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
@@ -147,8 +150,8 @@
 
     body.theme-classic .calculator {
       background-color: #fff;
-      box-shadow: none;
       border: 2px solid #ccc;
+      box-shadow: none;
     }
 
     body.theme-classic .buttons button {
@@ -189,10 +192,16 @@
       <button onclick="calculate()">=</button><br>
       <button onclick="appendValue('0')">0</button>
       <button onclick="appendValue('.')">.</button>
+      <button onclick="memoryAdd()">M+</button>
+      <button onclick="memorySubtract()">M-</button>
+      <button onclick="memoryRecall()">MR</button>
     </div>
   </div>
 
   <script>
+    let memory = 0;
+    let history = [];
+
     function appendValue(value) {
       document.getElementById('display').value += value;
     }
@@ -208,10 +217,26 @@
 
     function calculate() {
       try {
-        document.getElementById('display').value = eval(document.getElementById('display').value);
+        const input = document.getElementById('display').value;
+        const result = eval(input);
+        document.getElementById('display').value = result;
+        history.push(`${input} = ${result}`);
+        console.log('History:', history);
       } catch (error) {
         alert('Invalid Expression');
       }
+    }
+
+    function memoryAdd() {
+      memory += parseFloat(document.getElementById('display').value || 0);
+    }
+
+    function memorySubtract() {
+      memory -= parseFloat(document.getElementById('display').value || 0);
+    }
+
+    function memoryRecall() {
+      document.getElementById('display').value = memory;
     }
 
     function toggleDarkMode() {
@@ -245,5 +270,4 @@
     });
   </script>
 </body>
-</html>
-Add theme switching and creative design
+</html>Add favicon, PWA support, memory, history, and animations
