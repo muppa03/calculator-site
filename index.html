@@ -4,7 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Calculator</title>
-  <style>
+  .title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #eee;
+  border: none;
+  border-radius: 8px;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+body.dark .calculator {
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+body.dark .buttons button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+}
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -38,6 +70,8 @@
   </style>
 </head>
 <body>
+  <h1 class="title">My Calculator</h1>
+  <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Toggle Theme</button>
   <div class="calculator">
     <input type="text" id="display" disabled>
     <div class="buttons">
