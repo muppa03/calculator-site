@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Creative Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
@@ -17,17 +17,7 @@
       justify-content: center;
       min-height: 100vh;
       transition: background-color 0.3s;
-    }
-
-    .logo {
-      max-width: 60px;
-      margin-bottom: 10px;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 0px #fff); }
-      to { filter: drop-shadow(0 0 10px #fff); }
+      position: relative;
     }
 
     .title {
@@ -42,21 +32,29 @@
       margin-bottom: 15px;
     }
 
-    .toggle-btn {
+    .toggle-btn, .theme-selector {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border: none;
-      background-color: #444;
-      color: #fff;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+    }
+
+    .toggle-btn {
+      top: 20px;
+      right: 20px;
+      background-color: #444;
+      color: #fff;
     }
 
     .toggle-btn:hover {
       background-color: #666;
+    }
+
+    .theme-selector {
+      top: 70px;
+      right: 20px;
+      font-size: 0.9em;
     }
 
     .calculator {
@@ -112,19 +110,63 @@
       .calculator {
         width: 90%;
       }
+
       .buttons button {
         width: 22%;
         margin: 2%;
       }
+
+      .toggle-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+      }
+
+      .theme-selector {
+        top: 60px;
+        right: 10px;
+        padding: 6px 10px;
+      }
+
+      .title {
+        font-size: 1.8em;
+      }
+    }
+
+    /* Themes */
+    body.theme-neon .calculator {
+      background-color: #111;
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+    }
+
+    body.theme-neon .buttons button {
+      background-color: #222;
+      color: #0ff;
+      border: 1px solid #0ff;
+    }
+
+    body.theme-classic .calculator {
+      background-color: #fff;
+      box-shadow: none;
+      border: 2px solid #ccc;
+    }
+
+    body.theme-classic .buttons button {
+      background-color: #e0e0e0;
+      color: #000;
+      border: 1px solid #999;
     }
   </style>
 </head>
 <body>
-  <!-- Optional logo: replace src if you want -->
-  <!-- <img src="https://your-logo-url.png" alt="Logo" class="logo"> -->
   <h1 class="title">My Calculator</h1>
   <p class="author">by muppa03</p>
   <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Theme</button>
+  <select id="themeSelector" onchange="changeTheme()" class="theme-selector">
+    <option value="glass">🧊 Glass</option>
+    <option value="neon">🌈 Neon</option>
+    <option value="classic">🧱 Classic</option>
+  </select>
 
   <div class="calculator">
     <input type="text" id="display" disabled>
@@ -133,22 +175,18 @@
       <button onclick="appendValue('/')">/</button>
       <button onclick="appendValue('*')">*</button>
       <button onclick="deleteLast()">DEL</button><br>
-
       <button onclick="appendValue('7')">7</button>
       <button onclick="appendValue('8')">8</button>
       <button onclick="appendValue('9')">9</button>
       <button onclick="appendValue('-')">-</button><br>
-
       <button onclick="appendValue('4')">4</button>
       <button onclick="appendValue('5')">5</button>
       <button onclick="appendValue('6')">6</button>
       <button onclick="appendValue('+')">+</button><br>
-
       <button onclick="appendValue('1')">1</button>
       <button onclick="appendValue('2')">2</button>
       <button onclick="appendValue('3')">3</button>
       <button onclick="calculate()">=</button><br>
-
       <button onclick="appendValue('0')">0</button>
       <button onclick="appendValue('.')">.</button>
     </div>
@@ -180,6 +218,16 @@
       document.body.classList.toggle('dark');
     }
 
+    function changeTheme() {
+      const theme = document.getElementById("themeSelector").value;
+      document.body.classList.remove("theme-glass", "theme-neon", "theme-classic");
+      document.body.classList.add("theme-" + theme);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("theme-glass");
+    });
+
     document.addEventListener('keydown', function(event) {
       const key = event.key;
       const validKeys = '0123456789+-*/.=';
@@ -198,4 +246,4 @@
   </script>
 </body>
 </html>
-Make calculator design creative and modern
+Add theme switching and creative design
