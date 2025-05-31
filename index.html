@@ -76,7 +76,8 @@
     }
 
     function deleteLast() {
-      let display = document.getElementById('display');
+      let display = document.getElementById('display');<!-- Trigger rebuild -->
+
       display.value = display.value.slice(0, -1);
     }
 
